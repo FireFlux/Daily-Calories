@@ -1,0 +1,17 @@
+ul, ol h3, p {
+	white-space:normal !important;
+}
+
+ul, ol {
+	margin-top: 20px !important;
+}
+
+.ajax_loader {
+	padding-left: 50%;
+	margin: 30px 0 30px -15px;
+}
+
+.twitt_date {
+	padding-bottom: 5px;
+	color: #09F;
+}

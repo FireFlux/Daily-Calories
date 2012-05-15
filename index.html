@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Daily Calories</title>
+
+<link href="style/jquery.mobile-1.0.1.min.css" rel="stylesheet" type="text/css">
+<link href="style/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="script/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="script/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="private/api_urls.js"></script>
+<script type="text/javascript" src="script/script.js"></script>
+
+</head>
+
+<body>
+
+	<div data-role="page" id="index">
+
+		<div data-role="header">
+			<h1>Daily Calories</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+        	<a href="#initial_settings">initial settings</a>
+            <a href="#settings">settings</a>
+            <a href="#add_food">add_food</a>
+            <a href="#view_food">view_food</a>
+		</div><!-- /content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h4>c</h4>
+		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+
+	<div data-role="page" id="initial_settings">
+
+		<div data-role="header">
+			<h1>Daily Calories</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+        	<h2>Welcome to Daily Calories</h2>
+            <h4>Your personal calorie counter</h4>
+            <p>Please set some initial informations about you and press "Let's go".</p>
+            
+		</div><!-- /content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h4>c</h4>
+		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+    
+    <div data-role="page" id="settings">
+
+		<div data-role="header">
+			<h1>Daily Calories</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+        		
+		</div><!-- /content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h4>c</h4>
+		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+
+	<div data-role="page" id="add_food">
+
+		<div data-role="header">
+			<h1>Daily Calories</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">
+            <label for="search_food">Search food:</label>
+			<input type="search" name="search_food" id="search_food" placeholder="Search food..." value="" />
+            <a onclick="fatsecret.searchFood($('#search_food').val())" data-role="button">Search</a>
+			<ul data-role="listview" data-theme="c" id="result_list">
+            </ul>	
+		</div><!-- /content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h4>c</h4>
+		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+    
+    <div data-role="page" id="view_food">
+
+		<div data-role="header">
+			<h1>Daily Calories</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+        	<div id="food_list"></div>	
+		</div><!-- /content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h4>c</h4>
+		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+    
+</body>
+
+</html>
