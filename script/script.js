@@ -76,15 +76,29 @@ var fatsecret = {
 			//Callbackfunktion
   			success: function(data) {
 				var txt = "";
+				var found = false;
 				//Ergebnis iterieren und filtern
 				txt = txt + ('<h3>' + data.food.food_name + '</h3>');
 				$.each(data.food.servings.serving, function() {
-					var metric_ammount = parseFloat(this.metric_serving_amount);
+					var metric_amount = parseFloat(this.metric_serving_amount);
+					//alert(metric_ammount);
 					
-					if (this.metric_ammount == "100.000") {
-						txt = txt + ('<p>Per ' + metric_ammount + 'g:</p><p>Calories: ' + this.calories + '</p>');
+					if (metric_amount == 100) {
+						txt = txt + ('<p>Per ' + metric_amount + 'g:</p><p>Calories: ' + this.calories + '</p>');
+						found = true;
 					}
 				});
+				
+				if (found !== true) {
+					var serving = data.food.servings.serving;
+					if($.isArray(serving)) {
+						serving = serving[0];
+					}
+					var metric_amount = parseFloat(serving.metric_serving_amount);
+					
+					txt = txt + ('<p>Per ' + metric_amount + 'g:</p><p>Calories: ' + serving.calories + '</p>');
+					found = true;
+				}
 				//Ergebnis ausgeben
 				output.html(txt);
 				output.listview("refresh").hide().fadeIn("slow");
@@ -143,8 +157,11 @@ var db;
 
 var data = {
 	timestamp : 0,
+	/*-- Initialise app --*/
 	init : function() {
+		/*-- Load/create db --*/
 		db = new localStorageDB("db");
+		/*-- If db is new, create tables and default user --*/
 		if( db.isNew() ) {
 			
 			db.createTable("profile", ["name", "gender", "calorie_cap"]);
@@ -155,13 +172,20 @@ var data = {
 		}
 		
 		var user = db.query("profile", {ID: 1})[0];
-		//alert(user[0].name);
+		/*-- Load user data or if not available redirect to #initial_settings --*/
 		if (user.name == "default") {
 			$.mobile.changePage("#initial_settings");
 		}else {
 			profile.init(user);
 		}
+		/*-- Set current timestamp --*/
+		data.timestamp = data.getTimestamp();
 	},
+	/*-- Check if day is changed --*/
 	checkTimestamp : function() {
+	},
+	/*-- Get current timestamp --*/
+	getTimestamp : function() {
+		return new Date().getTime();
 	}
 }
