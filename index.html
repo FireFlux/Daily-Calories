@@ -9,6 +9,7 @@
 <script type="text/javascript" src="script/jquery-1.6.4.min.js"></script>
 <script type="text/javascript" src="script/jquery.mobile-1.0.1.min.js"></script>
 <script type="text/javascript" src="private/api_urls.js"></script>
+<script type="text/javascript" src="script/localstoragedb.min.js"></script>
 <script type="text/javascript" src="script/script.js"></script>
 
 </head>
@@ -45,6 +46,20 @@
             <h4>Your personal calorie counter</h4>
             <p>Please set some initial informations about you and press "Let's go".</p>
             
+            <label for="user_name_form">Username:</label>
+			<input type="text" name="user_name_form" id="user_name_form" placeholder="Username"/>
+            
+            <fieldset data-role="controlgroup">
+            	<legend>Gender:</legend>
+     			<input type="radio" name="gender_radio" id="gender_female_radio" value="female" checked="checked" />
+     			<label for="gender_female_radio">Female</label>
+     			<input type="radio" name="gender_radio" id="gender_male_radio" value="male"  />
+     			<label for="gender_male_radio">Male</label>
+          	</fieldset>
+            
+            <a href="" onClick="profile.setUser();" data-role="button">Let's go</a>
+
+            
 		</div><!-- /content -->
 
 		<div data-role="footer" data-position="fixed">
@@ -60,7 +75,21 @@
 		</div><!-- /header -->
 
 		<div data-role="content">	
-        		
+        	<label for="user_name_form_settings">Change username:</label>
+			<input type="text" name="user_name_form_settings" id="user_name_form_settings" placeholder="Set username"/>
+            
+            <fieldset data-role="controlgroup">
+            	<legend>Change gender:</legend>
+     			<input type="radio" name="gender_radio_settings" id="gender_female_radio_settings" value="female" />
+     			<label for="gender_female_radio_settings">Female</label>
+     			<input type="radio" name="gender_radio_settings" id="gender_male_radio_settings" value="male"  />
+     			<label for="gender_male_radio_settings">Male</label>
+          	</fieldset>
+            
+            <label for="calorie_cap_form_settings">Change calorie cap:</label>
+			<input type="text" name="calorie_cap_form_settings" id="calorie_cap_form_settings" placeholder="Set calorie cap"/>
+            
+            <a href="" onClick="profile.updateUser();" data-role="button">Save changes</a>
 		</div><!-- /content -->
 
 		<div data-role="footer" data-position="fixed">

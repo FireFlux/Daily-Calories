@@ -1,8 +1,26 @@
 // JavaScript Document
 
-$( '#index' ).live( 'pagecreate',function(event){
+$( '#index' ).live( 'pageinit',function(event){
 	//fatsecret.searchFood();
+	data.init();
 });
+
+$( '#settings' ).live( 'pagebeforeshow',function(event){
+	$('#user_name_form_settings').val(profile.name);
+	
+	var radios = $('input[name=gender_radio_settings]');
+	if(profile.gender == "female") {
+		radios.filter('[value="female"]').attr('checked', true).checkboxradio("refresh");
+		radios.filter('[value="male"]').attr('checked', false).checkboxradio("refresh");
+	}else {
+		radios.filter('[value="male"]').attr('checked', true).checkboxradio("refresh");
+		radios.filter('[value="female"]').attr('checked', false).checkboxradio("refresh");
+	}
+	
+	$('#calorie_cap_form_settings').val(profile.calorieCap);
+});
+
+/*--- API ---*/
 
 var fatsecret = {
 	foodid : "",
@@ -72,5 +90,78 @@ var fatsecret = {
 				output.listview("refresh").hide().fadeIn("slow");
   			}
 		});
+	}
+}
+
+/*--- Profile ---*/
+
+var profile = {
+	name : "",
+	gender : "",
+	calorieCap : "",
+	/*-- Load user data on startup --*/
+	init : function(user) {
+		profile.name = user.name;
+		profile.gender = user.gender;
+		profile.calorieCap = user.calorie_cap;
+	},
+	/*-- Initial set user (#initial_settings) --*/
+	setUser : function() {
+		profile.name = $('#user_name_form').val();
+		profile.gender = $('input[name=gender_radio]:checked').val();
+		if (profile.gender == "female") {
+			profile.calorieCap = 2000;
+		}else {
+			profile.calorieCap = 2500;
+		}
+		
+		profile.save();
+		$.mobile.changePage("#index");
+	},
+	/*-- Update user (#settings) --*/
+	updateUser : function() {
+		profile.name = $('#user_name_form_settings').val();
+		profile.gender = $('input[name=gender_radio_settings]:checked').val();
+		profile.calorieCap = $('#calorie_cap_form_settings').val();
+		
+		profile.save();
+	},
+	/*-- Save changes to db --*/
+	save : function() {
+		db.update("profile", {ID: 1}, function(row){
+			row.name = profile.name;
+			row.gender = profile.gender;
+			row.calorie_cap = profile.calorieCap;
+			return row;	
+		});
+		db.commit();
+	}
+}
+
+/*--- Data ---*/
+var db;
+
+var data = {
+	timestamp : 0,
+	init : function() {
+		db = new localStorageDB("db");
+		if( db.isNew() ) {
+			
+			db.createTable("profile", ["name", "gender", "calorie_cap"]);
+			db.createTable("data", ["title", "timestamp", "calories", "metric_ammount"]);
+			
+			db.insert("profile", {name: "default", gender: "female", calorie_cap: 2000});
+			db.commit();
+		}
+		
+		var user = db.query("profile", {ID: 1})[0];
+		//alert(user[0].name);
+		if (user.name == "default") {
+			$.mobile.changePage("#initial_settings");
+		}else {
+			profile.init(user);
+		}
+	},
+	checkTimestamp : function() {
 	}
 }
