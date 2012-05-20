@@ -27,6 +27,7 @@
             <a href="#settings">settings</a>
             <a href="#add_food">add_food</a>
             <a href="#view_food">view_food</a>
+            <a href="#list_food">list_food</a>
 		</div><!-- /content -->
 
 		<div data-role="footer" data-position="fixed">
@@ -125,7 +126,30 @@
 		</div><!-- /header -->
 
 		<div data-role="content">	
-        	<div id="food_list"></div>	
+        	<div id="food_list"></div>
+            
+			<label for="portion_slider">Set portion:</label>
+			<input type="range" name="portion_slider" id="portion_slider" onChange="portion.setPortion()" value="0" min="0" max="1500" step="25" />
+        	
+            <p id="calculated_calories"></p>
+            <a href="" onClick="portion.savePortion();" data-role="button">Save Portion</a>
+		</div><!-- /content -->
+
+		<div data-role="footer" data-position="fixed">
+			<h4>c</h4>
+		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+    
+    <div data-role="page" id="list_food">
+
+		<div data-role="header">
+			<h1>Daily Calories</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+        	<ul data-role="listview" data-theme="c" id="day_food_list">
+            </ul>
 		</div><!-- /content -->
 
 		<div data-role="footer" data-position="fixed">

@@ -20,6 +20,10 @@ $( '#settings' ).live( 'pagebeforeshow',function(event){
 	$('#calorie_cap_form_settings').val(profile.calorieCap);
 });
 
+$( '#list_food' ).live( 'pagebeforeshow',function(event){
+	presentation.dayFoodList();
+});
+
 /*--- API ---*/
 
 var fatsecret = {
@@ -85,6 +89,7 @@ var fatsecret = {
 					
 					if (metric_amount == 100) {
 						txt = txt + ('<p>Per ' + metric_amount + 'g:</p><p>Calories: ' + this.calories + '</p>');
+						portion.init(data.food.food_name, metric_amount, parseFloat(this.calories));
 						found = true;
 					}
 				});
@@ -97,13 +102,68 @@ var fatsecret = {
 					var metric_amount = parseFloat(serving.metric_serving_amount);
 					
 					txt = txt + ('<p>Per ' + metric_amount + 'g:</p><p>Calories: ' + serving.calories + '</p>');
+					portion.init(data.food.food_name, metric_amount, parseFloat(serving.calories));
 					found = true;
 				}
 				//Ergebnis ausgeben
 				output.html(txt);
-				output.listview("refresh").hide().fadeIn("slow");
+				output.hide().fadeIn("slow");
   			}
 		});
+	}
+}
+
+/*--- Portion ---*/
+
+var portion = {
+	actualFood : "",
+	actualAmount : 0,
+	actualCalories : 0,
+	caloriesPerGram : 0,
+	init : function(food, amount, calories) {
+		portion.actualFood = food;
+		portion.actualAmount = amount;
+		portion.actualCalories = calories;
+		
+		portion.calcGram();
+	},
+	calcGram : function() {
+		portion.caloriesPerGram = portion.actualCalories / portion.actualAmount;
+		//alert(portion.actualCalories +" / "+ portion.actualAmount +" = "+ portion.caloriesPerGram);
+	},
+	setPortion : function() {
+		portion.actualAmount = $('#portion_slider').val();
+		
+		portion.actualCalories = portion.actualAmount * portion.caloriesPerGram;
+		
+		$('#calculated_calories').text(portion.actualCalories);
+	},
+	savePortion : function() {
+		data.timestamp = data.getTimestamp();
+		data.actualDate = data.getActualDate();
+		
+		db.insert("data", {title: portion.actualFood, timestamp: data.timestamp, date: data.actualDate, calories: portion.actualCalories, metric_amount: portion.actualAmount});
+		
+		db.commit();
+	}
+}
+
+/*--- Presentation ---*/
+
+var presentation = {
+	dayFoodList : function() {
+		var output = $('#day_food_list');
+		output.html('<img class="ajax_loader" src="images/ajax-loader-kit.gif"/>');
+		var txt = "";
+		
+		var list = db.query("data", {date: data.actualDate});
+		
+		$.each(list, function() {
+			txt = txt + ('<li><a href=""><h3>' + this.title + '</h3><p>' + this.metric_amount + ' g: ' + this.calories + ' kcal</p></a></li>');
+		});
+		
+		output.html(txt);
+		output.listview("refresh").hide().fadeIn("slow");
 	}
 }
 
@@ -153,10 +213,12 @@ var profile = {
 }
 
 /*--- Data ---*/
+
 var db;
 
 var data = {
 	timestamp : 0,
+	actualDate : "",
 	/*-- Initialise app --*/
 	init : function() {
 		/*-- Load/create db --*/
@@ -165,7 +227,7 @@ var data = {
 		if( db.isNew() ) {
 			
 			db.createTable("profile", ["name", "gender", "calorie_cap"]);
-			db.createTable("data", ["title", "timestamp", "calories", "metric_ammount"]);
+			db.createTable("data", ["title", "timestamp", "date", "calories", "metric_amount"]);
 			
 			db.insert("profile", {name: "default", gender: "female", calorie_cap: 2000});
 			db.commit();
@@ -180,9 +242,21 @@ var data = {
 		}
 		/*-- Set current timestamp --*/
 		data.timestamp = data.getTimestamp();
+		data.actualDate = data.getActualDate();
 	},
 	/*-- Check if day is changed --*/
 	checkTimestamp : function() {
+	},
+	getActualDate : function() {
+		var time = new Date();
+		
+		var day = time.getDate();
+		if(day<10)day="0"+day;
+		var month = time.getMonth() + 1;
+		if(month<10)month="0"+month;
+		var year = time.getFullYear();
+		
+		return (day + "/" + month + "/" + year);
 	},
 	/*-- Get current timestamp --*/
 	getTimestamp : function() {
