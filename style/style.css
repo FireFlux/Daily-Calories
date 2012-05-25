@@ -1,8 +1,8 @@
-ul, ol h3, p {
+.result_list h3, p {
 	white-space:normal !important;
 }
 
-ul, ol {
+.result_list {
 	margin-top: 20px !important;
 }
 

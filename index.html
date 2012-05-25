@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <title>Daily Calories</title>
 
-<link href="style/jquery.mobile-1.0.1.min.css" rel="stylesheet" type="text/css">
+<link href="style/jquery.mobile-1.1.0.min.css" rel="stylesheet" type="text/css">
 <link href="style/style.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="script/jquery-1.6.4.min.js"></script>
-<script type="text/javascript" src="script/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="script/jquery.mobile-1.1.0.min.js"></script>
 <script type="text/javascript" src="private/api_urls.js"></script>
 <script type="text/javascript" src="script/localstoragedb.min.js"></script>
 <script type="text/javascript" src="script/script.js"></script>
@@ -20,6 +20,7 @@
 
 		<div data-role="header">
 			<h1>Daily Calories</h1>
+            <a href="#settings" class="ui-btn-right" data-icon="gear">Settings</a>
 		</div><!-- /header -->
 
 		<div data-role="content">	
@@ -30,8 +31,14 @@
             <a href="#list_food">list_food</a>
 		</div><!-- /content -->
 
-		<div data-role="footer" data-position="fixed">
-			<h4>c</h4>
+		<div data-role="footer" data-id="global_footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#index" class="ui-btn-active ui-state-persist" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a href="#add_food" data-iconpos="top" data-icon="plus">Add Food</a></li>
+					<li><a href="#list_food" data-iconpos="top" data-icon="info">Analysis</a></li>
+				</ul>
+			</div><!-- /navbar -->
 		</div><!-- /footer -->
         
 	</div><!-- /page -->
@@ -62,16 +69,13 @@
 
             
 		</div><!-- /content -->
-
-		<div data-role="footer" data-position="fixed">
-			<h4>c</h4>
-		</div><!-- /footer -->
         
 	</div><!-- /page -->
     
     <div data-role="page" id="settings">
 
 		<div data-role="header">
+        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
 			<h1>Daily Calories</h1>
 		</div><!-- /header -->
 
@@ -93,8 +97,14 @@
             <a href="" onClick="profile.updateUser();" data-role="button">Save changes</a>
 		</div><!-- /content -->
 
-		<div data-role="footer" data-position="fixed">
-			<h4>c</h4>
+		<div data-role="footer" data-id="global_footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#index" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a href="#add_food" data-iconpos="top" data-icon="plus">Add Food</a></li>
+					<li><a href="#list_food" data-iconpos="top" data-icon="info">Analysis</a></li>
+				</ul>
+			</div><!-- /navbar -->
 		</div><!-- /footer -->
         
 	</div><!-- /page -->
@@ -102,6 +112,7 @@
 	<div data-role="page" id="add_food">
 
 		<div data-role="header">
+        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
 			<h1>Daily Calories</h1>
 		</div><!-- /header -->
 
@@ -109,12 +120,18 @@
             <label for="search_food">Search food:</label>
 			<input type="search" name="search_food" id="search_food" placeholder="Search food..." value="" />
             <a onclick="fatsecret.searchFood($('#search_food').val())" data-role="button">Search</a>
-			<ul data-role="listview" data-theme="c" id="result_list">
+			<ul data-role="listview" data-theme="c" id="search_result_list" class="result_list">
             </ul>	
 		</div><!-- /content -->
 
-		<div data-role="footer" data-position="fixed">
-			<h4>c</h4>
+		<div data-role="footer" data-id="global_footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#index" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a href="#add_food" class="ui-btn-active ui-state-persist" data-iconpos="top" data-icon="plus">Add Food</a></li>
+					<li><a href="#list_food" data-iconpos="top" data-icon="info">Analysis</a></li>
+				</ul>
+			</div><!-- /navbar -->
 		</div><!-- /footer -->
         
 	</div><!-- /page -->
@@ -122,6 +139,7 @@
     <div data-role="page" id="view_food">
 
 		<div data-role="header">
+        	<a href="#add_food" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
 			<h1>Daily Calories</h1>
 		</div><!-- /header -->
 
@@ -135,8 +153,14 @@
             <a href="" onClick="portion.savePortion();" data-role="button">Save Portion</a>
 		</div><!-- /content -->
 
-		<div data-role="footer" data-position="fixed">
-			<h4>c</h4>
+		<div data-role="footer" data-id="global_footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#index" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a href="#add_food" data-iconpos="top" data-icon="plus">Add Food</a></li>
+					<li><a href="#list_food" data-iconpos="top" data-icon="info">Analysis</a></li>
+				</ul>
+			</div><!-- /navbar -->
 		</div><!-- /footer -->
         
 	</div><!-- /page -->
@@ -144,16 +168,23 @@
     <div data-role="page" id="list_food">
 
 		<div data-role="header">
+        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
 			<h1>Daily Calories</h1>
 		</div><!-- /header -->
 
 		<div data-role="content">	
-        	<ul data-role="listview" data-theme="c" id="day_food_list">
+        	<ul data-role="listview" data-theme="c" id="day_food_list" class="result_list">
             </ul>
 		</div><!-- /content -->
 
-		<div data-role="footer" data-position="fixed">
-			<h4>c</h4>
+		<div data-role="footer" data-id="global_footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#index" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a href="#add_food" data-iconpos="top" data-icon="plus">Add Food</a></li>
+					<li><a href="#list_food" class="ui-btn-active ui-state-persist" data-iconpos="top" data-icon="info">Analysis</a></li>
+				</ul>
+			</div><!-- /navbar -->
 		</div><!-- /footer -->
         
 	</div><!-- /page -->

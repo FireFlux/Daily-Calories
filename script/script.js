@@ -1,9 +1,13 @@
 // JavaScript Document
 
+/*--- page #index ---*/
+
 $( '#index' ).live( 'pageinit',function(event){
 	//fatsecret.searchFood();
 	data.init();
 });
+
+/*--- page #settings ---*/
 
 $( '#settings' ).live( 'pagebeforeshow',function(event){
 	$('#user_name_form_settings').val(profile.name);
@@ -20,6 +24,21 @@ $( '#settings' ).live( 'pagebeforeshow',function(event){
 	$('#calorie_cap_form_settings').val(profile.calorieCap);
 });
 
+/*--- page #add_food ---*/
+
+$( '#add_food' ).live( 'pagebeforeshow',function(event){
+	
+});
+
+/*--- page #view_food ---*/
+
+$( '#view_food' ).live( 'pagebeforeshow',function(event){
+	$('#portion_slider').val(0).slider("refresh");
+	$('#calculated_calories').text(0);
+});
+
+/*--- page #list_food ---*/
+
 $( '#list_food' ).live( 'pagebeforeshow',function(event){
 	presentation.dayFoodList();
 });
@@ -30,7 +49,7 @@ var fatsecret = {
 	foodid : "",
 	query : "",
 	searchFood : function(q) {
-		var output = $('#result_list');
+		var output = $('#search_result_list');
 		output.html('<img class="ajax_loader" src="images/ajax-loader-kit.gif"/>');
 		
 		fatsecret.query = q;
@@ -145,6 +164,7 @@ var portion = {
 		db.insert("data", {title: portion.actualFood, timestamp: data.timestamp, date: data.actualDate, calories: portion.actualCalories, metric_amount: portion.actualAmount});
 		
 		db.commit();
+		$.mobile.changePage("#add_food");
 	}
 }
 
