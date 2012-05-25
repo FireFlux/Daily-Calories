@@ -29,6 +29,10 @@
             <a href="#add_food">add_food</a>
             <a href="#view_food">view_food</a>
             <a href="#list_food">list_food</a>
+            <h3>Welcome back, <span id="index_user_name"></span>.</h3>
+            
+            <p>Your actual day count is:<p>
+            <div id="index_graph"></div>
 		</div><!-- /content -->
 
 		<div data-role="footer" data-id="global_footer" data-position="fixed">
@@ -95,6 +99,7 @@
 			<input type="text" name="calorie_cap_form_settings" id="calorie_cap_form_settings" placeholder="Set calorie cap"/>
             
             <a href="" onClick="profile.updateUser();" data-role="button">Save changes</a>
+            <a href="#settings_delete_data" data-rel="dialog" data-theme="b" data-role="button">Delete all calorie data</a>
 		</div><!-- /content -->
 
 		<div data-role="footer" data-id="global_footer" data-position="fixed">
@@ -106,6 +111,19 @@
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+    
+    <div data-role="page" id="settings_delete_data">
+
+		<div data-role="header">
+			<h1>Delete all calorie data?</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">
+            <a href="#settings" data-rel="back" onClick="data.deleteCalorieData();" data-theme="b" data-role="button">Delete</a>
+            <a href="#settings" data-rel="back" data-role="button">Cancle</a>
+		</div><!-- /content -->
         
 	</div><!-- /page -->
 

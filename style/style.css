@@ -1,3 +1,16 @@
+
+/*------------ #index ------------*/
+
+#index_graph {
+	width: 100%;
+	display: block;
+	height: 300px;
+	margin: 10px 0;
+	border: 1px solid grey;
+}
+
+/*--------------------------------*/
+
 .result_list h3, p {
 	white-space:normal !important;
 }
@@ -11,7 +24,7 @@
 	margin: 30px 0 30px -15px;
 }
 
-.twitt_date {
+/*.twitt_date {
 	padding-bottom: 5px;
 	color: #09F;
-}
+}*/

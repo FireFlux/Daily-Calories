@@ -7,6 +7,10 @@ $( '#index' ).live( 'pageinit',function(event){
 	data.init();
 });
 
+$( '#index' ).live( 'pagebeforeshow',function(event){
+	$('#index_user_name').text(profile.name);
+});
+
 /*--- page #settings ---*/
 
 $( '#settings' ).live( 'pagebeforeshow',function(event){
@@ -40,7 +44,7 @@ $( '#view_food' ).live( 'pagebeforeshow',function(event){
 /*--- page #list_food ---*/
 
 $( '#list_food' ).live( 'pagebeforeshow',function(event){
-	presentation.dayFoodList();
+	presentation.dayFoodList(data.actualDate);
 });
 
 /*--- API ---*/
@@ -165,21 +169,28 @@ var portion = {
 		
 		db.commit();
 		$.mobile.changePage("#add_food");
+	},
+	deletePortion : function(portionId) {
+		db.deleteRows("data", {ID: portionId});
+		db.commit();
+		presentation.dayFoodList(presentation.settedDate);
 	}
 }
 
 /*--- Presentation ---*/
 
 var presentation = {
-	dayFoodList : function() {
+	settedDate : "",
+	dayFoodList : function(theDate) {
 		var output = $('#day_food_list');
 		output.html('<img class="ajax_loader" src="images/ajax-loader-kit.gif"/>');
+		presentation.settedDate = theDate;
 		var txt = "";
 		
-		var list = db.query("data", {date: data.actualDate});
+		var list = db.query("data", {date: theDate});
 		
 		$.each(list, function() {
-			txt = txt + ('<li><a href=""><h3>' + this.title + '</h3><p>' + this.metric_amount + ' g: ' + this.calories + ' kcal</p></a></li>');
+			txt = txt + ('<li><a href=""><h3>' + this.title + '</h3><p>' + this.metric_amount + ' g: ' + this.calories + ' kcal</p></a><a href="" onClick="portion.deletePortion(' + this.ID + ')" data-icon="delete"></a></li>');
 		});
 		
 		output.html(txt);
@@ -281,5 +292,9 @@ var data = {
 	/*-- Get current timestamp --*/
 	getTimestamp : function() {
 		return new Date().getTime();
+	},
+	deleteCalorieData : function() {
+		db.deleteRows("data");
+		db.commit();
 	}
 }
