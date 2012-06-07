@@ -10,7 +10,7 @@
 }
 
 /*------------ #view_food ------------*/
-#food_list {
+#food_list_head {
 	margin: 5px;
 	border: 1px solid #CCC;
 	-moz-border-radius: 				.6em /*{global-radii-blocks}*/;
@@ -26,7 +26,7 @@
 	background-image:      -o-linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/); /* Opera 11.10+ */
 	background-image:         linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/);
 }
-#food_list h3, #food_list p {
+#food_list_head h3, #food_list_head p {
 	margin: 0;
 	padding: 10px 5px;
 }

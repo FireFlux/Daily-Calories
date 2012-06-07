@@ -105,19 +105,13 @@ var fatsecret = {
 				var txt = "";
 				var found = false;
 				//Ergebnis iterieren und filtern
-				txt = txt + ('<h3>' + data.food.food_name + '</h3>');
+				txt = txt + ('<div id="food_list_head"><h3>' + data.food.food_name + '</h3>');
 				$.each(data.food.servings.serving, function() {
 					var metric_amount = parseFloat(this.metric_serving_amount);
 					//alert(metric_ammount);
 					
 					if (metric_amount == 100) {
-						txt = txt + ('<p>Per ' + metric_amount + ' g:</p>');
-						$('#cal_val').text(this.calories + ' kcal');
-						$('#prot_val').text(this.protein + ' g');
-						$('#carb_val').text(this.carbohydrate + ' g');
-						$('#fat_val').text(this.fat + ' g');
-						$('#fib_val').text(this.fiber + ' g');
-						$('#iron_val').text(this.iron + ' g');
+						txt = txt + ('<p>Per ' + metric_amount + ' g:</p></div><div class="ui-grid-b" id="nutrition_table"><div class="ui-block-a"><div class="nutrition_table_element"><h4>Calories:</h4><p>' + this.calories + ' kcal</p></div></div><div class="ui-block-b"><div class="nutrition_table_element"><h4>Protein:</h4><p>' + this.protein + ' g</p></div></div><div class="ui-block-c"><div class="nutrition_table_element"><h4>Carb:</h4><p>' + this.carbohydrate + ' g</p></div></div><div class="ui-block-a"><div class="nutrition_table_element"><h4>Fat:</h4><p>' + this.fat + ' g</p></div></div><div class="ui-block-b"><div class="nutrition_table_element"><h4>Fibre:</h4><p>' + this.fiber + ' g</p></div></div><div class="ui-block-c"><div class="nutrition_table_element"><h4>Iron:</h4><p>' + this.iron + ' g</p></div></div></div>');
 						
 						portion.init(data.food.food_name, metric_amount, parseFloat(this.calories));
 						found = true;
@@ -131,13 +125,7 @@ var fatsecret = {
 					}
 					var metric_amount = parseFloat(serving.metric_serving_amount);
 					
-					txt = txt + ('<p>Per ' + metric_amount + ' g:</p>');
-					$('#cal_val').text(this.calories + ' kcal');
-					$('#prot_val').text(this.protein + ' g');
-					$('#carb_val').text(this.carbohydrate + ' g');
-					$('#fat_val').text(this.fat + ' g');
-					$('#fib_val').text(this.fiber + ' g');
-					$('#iron_val').text(this.iron + ' g');
+					txt = txt + ('<p>Per ' + metric_amount + ' g:</p></div><div class="ui-grid-b" id="nutrition_table"><div class="ui-block-a"><div class="nutrition_table_element"><h4>Calories:</h4><p>' + this.calories + ' kcal</p></div></div><div class="ui-block-b"><div class="nutrition_table_element"><h4>Protein:</h4><p>' + this.protein + ' g</p></div></div><div class="ui-block-c"><div class="nutrition_table_element"><h4>Carb:</h4><p>' + this.carbohydrate + ' g</p></div></div><div class="ui-block-a"><div class="nutrition_table_element"><h4>Fat:</h4><p>' + this.fat + ' g</p></div></div><div class="ui-block-b"><div class="nutrition_table_element"><h4>Fibre:</h4><p>' + this.fiber + ' g</p></div></div><div class="ui-block-c"><div class="nutrition_table_element"><h4>Iron:</h4><p>' + this.iron + ' g</p></div></div></div>');
 					
 					portion.init(data.food.food_name, metric_amount, parseFloat(serving.calories));
 					found = true;
