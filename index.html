@@ -162,13 +162,26 @@
 		</div><!-- /header -->
 
 		<div data-role="content">	
-        	<div id="food_list"></div>
+        	<div id="food_list">
+            	
+            </div>
             
-			<label for="portion_slider">Set portion:</label>
-			<input type="range" name="portion_slider" id="portion_slider" onChange="portion.setPortion()" value="0" min="0" max="1500" step="25" />
+			<div class="ui-grid-b" id="nutrition_table">
+				<div class="ui-block-a"><div class="nutrition_table_element"><h4>Calories:</h4><p id="cal_val"></p></div></div>
+				<div class="ui-block-b"><div class="nutrition_table_element"><h4>Protein:</h4><p id="prot_val"></p></div></div>
+                <div class="ui-block-c"><div class="nutrition_table_element"><h4>Carb:</h4><p id="carb_val"></p></div></div>
+                <div class="ui-block-a"><div class="nutrition_table_element"><h4>Fat:</h4><p id="fat_val"></p></div></div>
+                <div class="ui-block-b"><div class="nutrition_table_element"><h4>Fibre:</h4><p id="fib_val"></p></div></div>
+				<div class="ui-block-c"><div class="nutrition_table_element"><h4>Iron:</h4><p id="iron_val"></p></div></div>
+			</div><!-- /grid-a -->
+            
+            <div id="set_portion">
+				<label for="portion_slider">Set portion:</label>
+				<input type="range" name="portion_slider" id="portion_slider" onChange="portion.setPortion()" value="0" min="0" max="1500" step="25" />
         	
-            <p id="calculated_calories"></p>
-            <a href="" onClick="portion.savePortion();" data-role="button">Save Portion</a>
+            	<p id="calculated_calories"></p>
+            	<a href="" onClick="portion.savePortion();" data-role="button">Save Portion</a>
+            </div>
 		</div><!-- /content -->
 
 		<div data-role="footer" data-id="global_footer" data-position="fixed">

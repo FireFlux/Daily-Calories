@@ -111,7 +111,14 @@ var fatsecret = {
 					//alert(metric_ammount);
 					
 					if (metric_amount == 100) {
-						txt = txt + ('<p>Per ' + metric_amount + 'g:</p><p>Calories: ' + this.calories + '</p>');
+						txt = txt + ('<p>Per ' + metric_amount + ' g:</p>');
+						$('#cal_val').text(this.calories + ' kcal');
+						$('#prot_val').text(this.protein + ' g');
+						$('#carb_val').text(this.carbohydrate + ' g');
+						$('#fat_val').text(this.fat + ' g');
+						$('#fib_val').text(this.fiber + ' g');
+						$('#iron_val').text(this.iron + ' g');
+						
 						portion.init(data.food.food_name, metric_amount, parseFloat(this.calories));
 						found = true;
 					}
@@ -124,7 +131,14 @@ var fatsecret = {
 					}
 					var metric_amount = parseFloat(serving.metric_serving_amount);
 					
-					txt = txt + ('<p>Per ' + metric_amount + 'g:</p><p>Calories: ' + serving.calories + '</p>');
+					txt = txt + ('<p>Per ' + metric_amount + ' g:</p>');
+					$('#cal_val').text(this.calories + ' kcal');
+					$('#prot_val').text(this.protein + ' g');
+					$('#carb_val').text(this.carbohydrate + ' g');
+					$('#fat_val').text(this.fat + ' g');
+					$('#fib_val').text(this.fiber + ' g');
+					$('#iron_val').text(this.iron + ' g');
+					
 					portion.init(data.food.food_name, metric_amount, parseFloat(serving.calories));
 					found = true;
 				}
