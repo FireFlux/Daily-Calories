@@ -38,7 +38,7 @@ $( '#add_food' ).live( 'pagebeforeshow',function(event){
 
 $( '#view_food' ).live( 'pagebeforeshow',function(event){
 	$('#portion_slider').val(0).slider("refresh");
-	$('#calculated_calories').text(0);
+	$('#calculated_calories').text(0 + ' kcal');
 });
 
 /*--- page #list_food ---*/
@@ -161,7 +161,7 @@ var portion = {
 		
 		portion.actualCalories = portion.actualAmount * portion.caloriesPerGram;
 		
-		$('#calculated_calories').text(portion.actualCalories);
+		$('#calculated_calories').text(portion.actualCalories + ' kcal');
 	},
 	savePortion : function() {
 		data.timestamp = data.getTimestamp();
