@@ -9,6 +9,13 @@
 	border: 1px solid grey;
 }
 
+/*------------ #add_food_manual ------------*/
+
+#food_calories_form, #food_amount_form {
+	width: 90%;
+	margin: 10px;
+}
+
 /*------------ #view_food ------------*/
 #food_list_head {
 	margin: 5px;

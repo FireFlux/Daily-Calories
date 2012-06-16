@@ -14,6 +14,10 @@ $( '#index' ).live( 'pagebeforeshow',function(event){
 /*--- page #settings ---*/
 
 $( '#settings' ).live( 'pagebeforeshow',function(event){
+	if(data.initialised == false) {
+		data.init();
+	}
+	
 	$('#user_name_form_settings').val(profile.name);
 	
 	var radios = $('input[name=gender_radio_settings]');
@@ -31,12 +35,18 @@ $( '#settings' ).live( 'pagebeforeshow',function(event){
 /*--- page #add_food ---*/
 
 $( '#add_food' ).live( 'pagebeforeshow',function(event){
-	
+	if(data.initialised == false) {
+		data.init();
+	}
 });
 
 /*--- page #view_food ---*/
 
 $( '#view_food' ).live( 'pagebeforeshow',function(event){
+	if(data.initialised == false) {
+		data.init();
+	}
+	
 	$('#portion_slider').val(0).slider("refresh");
 	$('#calculated_calories').text(0 + ' kcal');
 });
@@ -44,6 +54,10 @@ $( '#view_food' ).live( 'pagebeforeshow',function(event){
 /*--- page #list_food ---*/
 
 $( '#list_food' ).live( 'pagebeforeshow',function(event){
+	if(data.initialised == false) {
+		data.init();
+	}
+	
 	presentation.dayFoodList(data.actualDate);
 });
 
@@ -159,9 +173,34 @@ var portion = {
 	setPortion : function() {
 		portion.actualAmount = $('#portion_slider').val();
 		
-		portion.actualCalories = portion.actualAmount * portion.caloriesPerGram;
+		portion.actualCalories = (portion.actualAmount * portion.caloriesPerGram).toFixed(0);
 		
 		$('#calculated_calories').text(portion.actualCalories + ' kcal');
+	},
+	setPortionManually : function() {
+		food = $('#food_name_form');
+		amount = $('#food_amount_form');
+		calories = $('#food_calories_form');
+		
+		if(food.val() == "") {
+			alert("Please enter food name!");
+		}else if(amount.val()!="" && calories.val()!="" && /^[0-9]*(?:\.[0-9]*)?$/.test(amount.val()) && /^[0-9]*(?:\.[0-9]*)?$/.test(calories.val())) {
+			portion.actualFood = food.val();
+			portion.actualCalories = parseFloat(calories.val()).toFixed(0);
+			portion.actualAmount = parseFloat(amount.val()).toFixed(0);
+		
+			portion.calcGram();
+		
+			portion.savePortion();
+		
+			food.val("");
+			amount.val("");
+			calories.val("");
+		}else {
+			alert("Please enter valid data!");
+			amount.val("");
+			calories.val("");
+		}
 	},
 	savePortion : function() {
 		data.timestamp = data.getTimestamp();
@@ -184,6 +223,8 @@ var portion = {
 var presentation = {
 	settedDate : "",
 	dayFoodList : function(theDate) {
+		$('#day_food_date').html('<h3>' + theDate + '</h3>');
+		
 		var output = $('#day_food_list');
 		output.html('<img class="ajax_loader" src="images/ajax-loader-kit.gif"/>');
 		presentation.settedDate = theDate;
@@ -252,6 +293,7 @@ var db;
 var data = {
 	timestamp : 0,
 	actualDate : "",
+	initialised : false,
 	/*-- Initialise app --*/
 	init : function() {
 		/*-- Load/create db --*/
@@ -276,6 +318,8 @@ var data = {
 		/*-- Set current timestamp --*/
 		data.timestamp = data.getTimestamp();
 		data.actualDate = data.getActualDate();
+		
+		data.initialised = true;
 	},
 	/*-- Check if day is changed --*/
 	checkTimestamp : function() {

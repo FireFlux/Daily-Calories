@@ -79,7 +79,7 @@
     <div data-role="page" id="settings">
 
 		<div data-role="header">
-        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
+        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Back</a>
 			<h1>Daily Calories</h1>
 		</div><!-- /header -->
 
@@ -130,8 +130,9 @@
 	<div data-role="page" id="add_food">
 
 		<div data-role="header">
-        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
+        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Back</a>
 			<h1>Daily Calories</h1>
+            <a href="#add_food_manual" class="ui-btn-right" data-icon="plus">Manually add</a>
 		</div><!-- /header -->
 
 		<div data-role="content">
@@ -154,10 +155,46 @@
         
 	</div><!-- /page -->
     
+    <div data-role="page" id="add_food_manual">
+
+		<div data-role="header">
+        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Back</a>
+			<h1>Daily Calories</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">
+            <label class="ui-hidden-accessible" for="food_name_form">Food name:</label>
+			<input type="text" name="food_name_form" id="food_name_form" placeholder="Enter food name..."/>
+            <div class="ui-grid-a">
+				<div class="ui-block-a">
+                	<label class="ui-hidden-accessible" for="food_calories_form">Calories (kcal):</label>
+					<input type="text" name="food_calories_form" id="food_calories_form" placeholder="Calories (kcal)..."/>
+                </div>
+				<div class="ui-block-b">
+                	<label class="ui-hidden-accessible" for="food_amount_form">Amount (g):</label>
+					<input type="text" name="food_amount_form" id="food_amount_form" placeholder="Amount (g)..."/>
+                </div>
+			</div><!-- /grid-a -->
+            
+          	<a onclick="portion.setPortionManually()" data-role="button">Save Portion</a>
+		</div><!-- /content -->
+
+		<div data-role="footer" data-id="global_footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#index" data-iconpos="top" data-icon="home">Home</a></li>
+					<li><a href="#add_food" class="ui-btn-active ui-state-persist" data-iconpos="top" data-icon="plus">Add Food</a></li>
+					<li><a href="#list_food" data-iconpos="top" data-icon="info">Analysis</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
+        
+	</div><!-- /page -->
+    
     <div data-role="page" id="view_food">
 
 		<div data-role="header">
-        	<a href="#add_food" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
+        	<a href="#add_food" data-rel="back" data-icon="arrow-l" data-theme="a">Back</a>
 			<h1>Daily Calories</h1>
 		</div><!-- /header -->
 
@@ -190,11 +227,12 @@
     <div data-role="page" id="list_food">
 
 		<div data-role="header">
-        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Zurück</a>
+        	<a href="#index" data-rel="back" data-icon="arrow-l" data-theme="a">Back</a>
 			<h1>Daily Calories</h1>
 		</div><!-- /header -->
 
-		<div data-role="content">	
+		<div data-role="content">
+        	<div id="day_food_date"></div>	
         	<ul data-role="listview" data-theme="c" id="day_food_list" class="result_list">
             </ul>
 		</div><!-- /content -->
