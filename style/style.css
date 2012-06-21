@@ -9,6 +9,15 @@
 	border: 1px solid grey;
 }
 
+#count {
+	font-weight: bold;
+	color: #0C0;
+}
+
+.highcharts-container {
+	max-width: 100%;
+}
+
 /*------------ #add_food_manual ------------*/
 
 #food_calories_form, #food_amount_form {

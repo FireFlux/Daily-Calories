@@ -5,13 +5,17 @@
 
 <title>Daily Calories</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link href="style/jquery.mobile-1.1.0.min.css" rel="stylesheet" type="text/css">
 <link href="style/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="script/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="script/jquery.mobile-1.1.0.min.js"></script>
 <script type="text/javascript" src="private/api_urls.js"></script>
 <script type="text/javascript" src="script/localstoragedb.min.js"></script>
+<script type="text/javascript" src="script/highcharts.js"></script> 
 <script type="text/javascript" src="script/script.js"></script>
+   
 </head>
 
 <body>
@@ -24,14 +28,15 @@
 		</div><!-- /header -->
 
 		<div data-role="content">	
-        	<a href="#initial_settings">initial settings</a>
+        	<!--<a href="#initial_settings">initial settings</a>
             <a href="#settings">settings</a>
             <a href="#add_food">add_food</a>
             <a href="#view_food">view_food</a>
-            <a href="#list_food">list_food</a>
+            <a href="#list_food">list_food</a>-->
             <h3>Welcome back, <span id="index_user_name"></span>.</h3>
             
-            <p>Your actual day count is:<p>
+            <p>Your actual day count is: <span id="count"></span> kcal<p>
+
             <div id="index_graph"></div>
 		</div><!-- /content -->
 
