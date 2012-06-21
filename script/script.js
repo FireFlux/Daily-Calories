@@ -40,6 +40,14 @@ $( '#add_food' ).live( 'pagebeforeshow',function(event){
 	}
 });
 
+/*--- page #add_food_manual ---*/
+
+$( '#add_food_manual' ).live( 'pagebeforeshow',function(event){
+	if(data.initialised == false) {
+		data.init();
+	}
+});
+
 /*--- page #view_food ---*/
 
 $( '#view_food' ).live( 'pagebeforeshow',function(event){

@@ -73,6 +73,38 @@
 	padding: 5px;
 }
 
+/*------------ #view_food ------------*/
+
+.list_food_date {
+	text-align: center;
+	margin: 5px;
+	
+	border: 1px solid #CCC;
+	-moz-border-radius: 				.6em /*{global-radii-blocks}*/;
+	-webkit-border-radius: 				.6em /*{global-radii-blocks}*/;
+	border-radius: 						.6em /*{global-radii-blocks}*/;
+	
+	color: 					#3E3E3E /*{c-bar-color}*/;
+	text-shadow: 0 /*{c-bar-shadow-x}*/ 1px /*{c-bar-shadow-y}*/ 1px /*{c-bar-shadow-radius}*/ 	#fff /*{c-bar-shadow-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #f0f0f0 /*{c-bar-background-start}*/), to( #ddd /*{c-bar-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/);
+}
+
+.list_food_arrow {
+	width: 60px;
+	height: 60px;
+	position: relative;
+	
+	left: 50%;
+	margin-left: -30px;
+	
+	display: block;
+}
+
 /*--------------------------------*/
 
 .result_list h3, p {

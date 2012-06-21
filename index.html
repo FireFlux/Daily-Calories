@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
-<html>
+<html manifest="offline.manifest">
 <head>
 <meta charset="utf-8">
+
 <title>Daily Calories</title>
 
 <link href="style/jquery.mobile-1.1.0.min.css" rel="stylesheet" type="text/css">
@@ -11,7 +12,6 @@
 <script type="text/javascript" src="private/api_urls.js"></script>
 <script type="text/javascript" src="script/localstoragedb.min.js"></script>
 <script type="text/javascript" src="script/script.js"></script>
-
 </head>
 
 <body>
@@ -232,7 +232,13 @@
 		</div><!-- /header -->
 
 		<div data-role="content">
-        	<div id="day_food_date"></div>	
+        	<div class="ui-grid-b">
+				<div class="ui-block-a"><a href="" class="list_food_date list_food_arrow" onClick="alert('test')">l</a></div>
+				<div class="ui-block-b"><div id="day_food_date" class="list_food_date"></div></div>
+                <div class="ui-block-c"><a href="" class="list_food_date list_food_arrow" onClick="">r</a></div>
+			</div>
+            
+        	<!--<div id="day_food_date"></div>-->
         	<ul data-role="listview" data-theme="c" id="day_food_list" class="result_list">
             </ul>
 		</div><!-- /content -->

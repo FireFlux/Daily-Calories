@@ -1,0 +1,21 @@
+CACHE MANIFEST
+
+CACHE:
+index.html
+style/images/ajax-loader.gif
+style/images/ajax-loader.png
+style/images/icons-18-black.png
+style/images/icons-18-white.png
+style/images/icons-36-black.png
+style/images/icons-36-white.png
+style/jquery.mobile-1.1.0.min.css
+style/style.css
+script/jquery.mobile-1.1.0.min.js
+script/jquery-1.7.1.min.js
+script/localstoragedb.min.js
+script/script.js
+private/api_urls.js
+images/ajax-loader-kit.gif
+
+NETWORK:
+http://fierce-sky-8877.herokuapp.com/*
