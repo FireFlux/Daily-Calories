@@ -11,7 +11,7 @@
 <script type="text/javascript" src="private/api_urls.js"></script>
 <script type="text/javascript" src="script/localstoragedb.min.js"></script>
 <script type="text/javascript" src="script/script.js"></script>
-
+<script type="text/javascript" src="script/highcharts.js"></script>    
 </head>
 
 <body>
@@ -31,8 +31,9 @@
             <a href="#list_food">list_food</a>
             <h3>Welcome back, <span id="index_user_name"></span>.</h3>
             
-            <p>Your actual day count is:<p>
-            <div id="index_graph"></div>
+            <p>Your actual day count is: <input type="text" id="count" data-inline="true" name="count"/><p>
+
+            <div data-role="content" id="index_graph"></div>
 		</div><!-- /content -->
 
 		<div data-role="footer" data-id="global_footer" data-position="fixed">

@@ -1,14 +1,96 @@
 // JavaScript Document
 
+var chart;
+var arrayCalories;
+var arrayCap;
+
 /*--- page #index ---*/
 
 $( '#index' ).live( 'pageinit',function(event){
 	//fatsecret.searchFood();
 	data.init();
+
+	 arrayCalories = [];  
+	 arrayCap = [];
+	   
+	 chart = new Highcharts.Chart({
+		chart: {
+			renderTo: 'index_graph',
+			type: 'scatter',
+			margin: [70, 50, 60, 80],
+		},
+		title: {
+			text: 'Daily Statistic'
+		},
+		subtitle: {
+			text: 'Statistic of the Calories today.'
+		},
+		credits: {
+			enabled: false
+		},
+		xAxis: {
+			labels: {
+				enabled: false
+			},
+		},
+		yAxis: {
+			title: {
+				text: 'Calories'
+			},
+			tickInterval: 200,
+			minPadding: 0.2,
+			maxPadding: 0.2,
+			maxZoom: 60,
+			plotLines: [{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		},
+		legend: {
+			enabled: true
+		},
+		exporting: {
+			enabled: false
+		},
+		plotOptions: {
+			series: {
+				lineWidth: 1,
+				}
+		},
+        tooltip: {
+            formatter: function() {
+                return 'The value after your <b>'+ (this.x+1) +
+                    '. Meal</b> was <b>'+ this.y +'</b>';
+            }
+        },
+		series: [{
+			data: arrayCalories,
+			name: 'Calories today'
+		}, {
+			data: arrayCap,
+			name: 'Calorie Cap'
+		}]
+	});
 });
+
 
 $( '#index' ).live( 'pagebeforeshow',function(event){
 	$('#index_user_name').text(profile.name);
+
+	var count = 0;
+	var list = db.query("data", {date: data.actualDate});
+	arrayCalories = [];
+	arrayCap = [];
+	$.each(list, function() {
+		count = count + this.calories
+		arrayCalories.push(+count);
+		arrayCap.push(+this.calorie_cap);
+	});
+	$("#count").val(+count);
+	chart.series[0].setData(arrayCalories);
+	chart.series[1].setData(arrayCap);
+	chart.redraw();
 });
 
 /*--- page #settings ---*/
@@ -173,7 +255,8 @@ var portion = {
 	setPortion : function() {
 		portion.actualAmount = $('#portion_slider').val();
 		
-		portion.actualCalories = (portion.actualAmount * portion.caloriesPerGram).toFixed(0);
+		//portion.actualCalories = (portion.actualAmount * portion.caloriesPerGram).toFixed(0);
+		portion.actualCalories = portion.actualAmount * portion.caloriesPerGram
 		
 		$('#calculated_calories').text(portion.actualCalories + ' kcal');
 	},
@@ -206,7 +289,8 @@ var portion = {
 		data.timestamp = data.getTimestamp();
 		data.actualDate = data.getActualDate();
 		
-		db.insert("data", {title: portion.actualFood, timestamp: data.timestamp, date: data.actualDate, calories: portion.actualCalories, metric_amount: portion.actualAmount});
+		db.insert("data", {title: portion.actualFood, timestamp: data.timestamp, date: data.actualDate, calories: portion.actualCalories, metric_amount: portion.actualAmount, calorie_cap: profile.calorieCap});
+
 		
 		db.commit();
 		$.mobile.changePage("#add_food");
@@ -302,7 +386,7 @@ var data = {
 		if( db.isNew() ) {
 			
 			db.createTable("profile", ["name", "gender", "calorie_cap"]);
-			db.createTable("data", ["title", "timestamp", "date", "calories", "metric_amount"]);
+			db.createTable("data", ["title", "timestamp", "date", "calories", "metric_amount", "calorie_cap"]);
 			
 			db.insert("profile", {name: "default", gender: "female", calorie_cap: 2000});
 			db.commit();
