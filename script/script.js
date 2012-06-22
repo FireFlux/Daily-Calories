@@ -80,6 +80,8 @@ var graph = {
 	arrayCaloriesStat : [],
 	arrayCap : [],
 	arrayCapStat : [],
+	arrayTime : [],
+	arrayTimeStat : [],
 	
 	init : function() {
 	 	graph.chart = new Highcharts.Chart({
@@ -98,9 +100,7 @@ var graph = {
 				enabled: false
 			},
 			xAxis: {
-				labels: {
-					enabled: false
-				},
+				categories: graph.arrayTime
 			},
 			yAxis: {
 				title: {
@@ -159,9 +159,7 @@ var graph = {
 				enabled: false
 			},
 			xAxis: {
-				labels: {
-					enabled: false
-				},
+				categories: graph.arrayTimeStat
 			},
 			yAxis: {
 				title: {
@@ -201,13 +199,13 @@ var graph = {
 				data: graph.arrayCapStat,
 				name: 'Calorie Cap'
 			}]
-			
 		});
 	},
 	
 	draw : function(date) {
 		var count = 0;
 		var list = db.query("data", {date: date});
+		var time = new Date();
 		graph.arrayCalories = [];
 		graph.arrayCap = [];
 		$.each(list, function() {
@@ -215,6 +213,9 @@ var graph = {
 			//alert(count);
 			graph.arrayCalories.push(count);
 			graph.arrayCap.push(parseInt(this.calorie_cap));
+			time.setTime(this.timestamp);
+			graph.arrayTime.push(time.toLocaleString());
+			
 		});
 		var count_output = $("#count");
 		count_output.text(count);
@@ -225,12 +226,14 @@ var graph = {
 		}
 		graph.chart.series[0].setData(graph.arrayCalories);
 		graph.chart.series[1].setData(graph.arrayCap);
+		graph.chart.xAxis[0].categories = graph.arrayTime;
 		graph.chart.redraw();
 	},
 	
 		draw_stat : function(date) {
 		var count = 0;
 		var theDate = date;
+		var time = new Date();
 		var list = db.query("data", {date: theDate});
 		graph.arrayCaloriesStat = [];
 		graph.arrayCapStat = [];
@@ -239,6 +242,8 @@ var graph = {
 			//alert(count);
 			graph.arrayCaloriesStat.push(count);
 			graph.arrayCapStat.push(parseInt(this.calorie_cap));
+			time.setTime(this.timestamp);
+			graph.arrayTimeStat.push(time.toLocaleString());
 		});
 		var count_output = $("#count");
 		count_output.text(count);
@@ -249,6 +254,7 @@ var graph = {
 		}
 		graph.stat_chart.series[0].setData(graph.arrayCaloriesStat);
 		graph.stat_chart.series[1].setData(graph.arrayCapStat);
+		graph.stat_chart.xAxis[0].categories = graph.arrayTimeStat;
 		graph.stat_chart.redraw();
 	},
 }
