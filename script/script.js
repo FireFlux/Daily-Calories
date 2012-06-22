@@ -75,10 +75,12 @@ $( '#list_food' ).live( 'pagebeforeshow',function(event){
 var graph = {
 	chart : "",
 	stat_chart : "",
+	stat_chart_detail : "",
 	arrayCalories : [],
 	arrayCaloriesStat : [],
 	arrayCap : [],
 	arrayCapStat : [],
+	
 	init : function() {
 	 	graph.chart = new Highcharts.Chart({
 			chart: {
@@ -435,6 +437,21 @@ var presentation = {
 	}
 }
 
+/*---- Statistik ----*/
+var statistik = {
+	
+	/*---- Switch to previous Day ----*/
+	previous : function() {
+		var date = data.getPreviousDate();
+		presentation.dayFoodList(date);
+	},
+	/*---- Switch to next Day ----*/
+	next : function() {
+		var date = data.getNextDate();
+		presentation.dayFoodList(date);
+	}
+}
+
 /*--- Profile ---*/
 
 var profile = {
@@ -488,6 +505,7 @@ var data = {
 	timestamp : 0,
 	actualDate : "",
 	initialised : false,
+	actual : 0,
 	/*-- Initialise app --*/
 	init : function() {
 		/*-- Load/create db --*/
@@ -521,13 +539,35 @@ var data = {
 	},
 	getActualDate : function() {
 		var time = new Date();
-		
+		actual = new Date();
 		var day = time.getDate();
 		if(day<10)day="0"+day;
 		var month = time.getMonth() + 1;
 		if(month<10)month="0"+month;
 		var year = time.getFullYear();
 		
+		return (day + "/" + month + "/" + year);
+	},
+	
+	getPreviousDate : function() {
+		
+		actual.setDate(actual.getDate()-1);
+		var day = actual.getDate();
+		if(day<10)day="0"+day;
+		var month = actual.getMonth() + 1;
+		if(month<10)month="0"+month;
+		var year = actual.getFullYear();
+		return (day + "/" + month + "/" + year);
+	},
+	
+	getNextDate : function() {
+	
+		actual.setDate(actual.getDate()+1);
+		var day = actual.getDate();
+		if(day<10)day="0"+day;
+		var month = actual.getMonth() + 1;
+		if(month<10)month="0"+month;
+		var year = actual.getFullYear();
 		return (day + "/" + month + "/" + year);
 	},
 	/*-- Get current timestamp --*/
