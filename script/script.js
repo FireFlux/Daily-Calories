@@ -11,7 +11,7 @@ $( '#index' ).live( 'pageinit',function(event){
 
 $( '#index' ).live( 'pagebeforeshow',function(event){
 	$('#index_user_name').text(profile.name);
-	graph.draw();
+	graph.draw(data.actualDate);
 });
 
 /*--- page #settings ---*/
@@ -63,12 +63,10 @@ $( '#view_food' ).live( 'pagebeforeshow',function(event){
 });
 
 /*--- page #list_food ---*/
-
 $( '#list_food' ).live( 'pagebeforeshow',function(event){
 	if(data.initialised == false) {
 		data.init();
 	}
-	
 	presentation.dayFoodList(data.actualDate);
 });
 
@@ -76,8 +74,11 @@ $( '#list_food' ).live( 'pagebeforeshow',function(event){
 
 var graph = {
 	chart : "",
+	stat_chart : "",
 	arrayCalories : [],
+	arrayCaloriesStat : [],
 	arrayCap : [],
+	arrayCapStat : [],
 	init : function() {
 	 	graph.chart = new Highcharts.Chart({
 			chart: {
@@ -137,11 +138,74 @@ var graph = {
 				data: graph.arrayCap,
 				name: 'Calorie Cap'
 			}]
+			
+		});
+		
+			graph.stat_chart = new Highcharts.Chart({
+			chart: {
+				renderTo: 'stat_graph',
+				type: 'scatter',
+				margin: [70, 50, 60, 80],
+			},
+			title: {
+				text: 'Daily Statistic'
+			},
+			subtitle: {
+				text: 'Statistic of the Calories today.'
+			},
+			credits: {
+				enabled: false
+			},
+			xAxis: {
+				labels: {
+					enabled: false
+				},
+			},
+			yAxis: {
+				title: {
+					text: 'Calories'
+				},
+				tickInterval: 200,
+				minPadding: 0.2,
+				maxPadding: 0.2,
+				maxZoom: 60,
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			legend: {
+				enabled: true
+			},
+			exporting: {
+				enabled: false
+			},
+			plotOptions: {
+				series: {
+					lineWidth: 1,
+					}
+			},
+        	tooltip: {
+            	formatter: function() {
+                	return 'The value after your <b>'+ (this.x+1) +
+                    	'. Meal</b> was <b>'+ this.y +'</b>';
+            	}
+        	},
+			series: [{
+				data: graph.arrayCaloriesStat,
+				name: 'Calories today'
+			}, {
+				data: graph.arrayCapStat,
+				name: 'Calorie Cap'
+			}]
+			
 		});
 	},
-	draw : function() {
+	
+	draw : function(date) {
 		var count = 0;
-		var list = db.query("data", {date: data.actualDate});
+		var list = db.query("data", {date: date});
 		graph.arrayCalories = [];
 		graph.arrayCap = [];
 		$.each(list, function() {
@@ -160,7 +224,30 @@ var graph = {
 		graph.chart.series[0].setData(graph.arrayCalories);
 		graph.chart.series[1].setData(graph.arrayCap);
 		graph.chart.redraw();
-	}
+	},
+	
+		draw_stat : function(date) {
+		var count = 0;
+		var list = db.query("data", {date: date});
+		graph.arrayCaloriesStat = [];
+		graph.arrayCapStat = [];
+		$.each(list, function() {
+			count = count + parseInt(this.calories);
+			//alert(count);
+			graph.arrayCaloriesStat.push(count);
+			graph.arrayCapStat.push(parseInt(this.calorie_cap));
+		});
+		var count_output = $("#count");
+		count_output.text(count);
+		if(count>=profile.calorieCap) {
+			count_output.css("color","#C00");
+		}else {
+			count_output.css("color","#0C0");
+		}
+		graph.stat_chart.series[0].setData(graph.arrayCaloriesStat);
+		graph.stat_chart.series[1].setData(graph.arrayCapStat);
+		graph.stat_chart.redraw();
+	},
 }
 
 /*--- API ---*/
@@ -309,7 +396,6 @@ var portion = {
 		data.timestamp = data.getTimestamp();
 		data.actualDate = data.getActualDate();
 		
-		//db.insert("data", {title: portion.actualFood, timestamp: data.timestamp, date: data.actualDate, calories: portion.actualCalories, metric_amount: portion.actualAmount});
 		
 		db.insert("data", {title: portion.actualFood, timestamp: data.timestamp, date: data.actualDate, calories: portion.actualCalories, metric_amount: portion.actualAmount, calorie_cap: profile.calorieCap});
 
@@ -343,6 +429,7 @@ var presentation = {
 		});
 		
 		output.html(txt);
+		graph.draw_stat(theDate);
 		output.listview("refresh").hide().fadeIn("slow");
 	}
 }

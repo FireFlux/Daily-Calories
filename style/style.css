@@ -133,3 +133,13 @@
 	padding-bottom: 5px;
 	color: #09F;
 }*/
+
+/*------------ #list_food ------------*/
+
+#stat_graph {
+	width: 100%;
+	display: block;
+	height: 300px;
+	margin: 10px 0;
+	border: 1px solid grey;
+}
