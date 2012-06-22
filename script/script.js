@@ -228,7 +228,8 @@ var graph = {
 	
 		draw_stat : function(date) {
 		var count = 0;
-		var list = db.query("data", {date: date});
+		var theDate = date;
+		var list = db.query("data", {date: theDate});
 		graph.arrayCaloriesStat = [];
 		graph.arrayCapStat = [];
 		$.each(list, function() {
