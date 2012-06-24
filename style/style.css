@@ -82,9 +82,10 @@
 	padding: 5px;
 }
 
-/*------------ #view_food ------------*/
+/*------------ #list_food ------------*/
 
 .list_food_date {
+	text-decoration: none;
 	text-align: center;
 	margin: 5px;
 	
@@ -103,9 +104,16 @@
 	background-image:         linear-gradient( #f0f0f0 /*{c-bar-background-start}*/, #ddd /*{c-bar-background-end}*/);
 }
 
-.list_food_arrow {	
-	margin-top: 20px;
+.list_food_arrow {
+	width: 60px;
+	height: 60px;
+	
+	position: relative;
+	left: 50%;
+	margin-left: -30px;
+	display: block;
 }
+
 
 /*--------------------------------*/
 

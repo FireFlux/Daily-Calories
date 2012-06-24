@@ -5,7 +5,7 @@
 $( '#index' ).live( 'pageinit',function(event){
 	//fatsecret.searchFood();
 	data.init();
-	graph.init();
+	//graph.init();
 });
 
 
@@ -537,6 +537,7 @@ var data = {
 		/*-- Set current timestamp --*/
 		data.timestamp = data.getTimestamp();
 		data.actualDate = data.getActualDate();
+		graph.init();
 		
 		data.initialised = true;
 	},
