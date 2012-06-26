@@ -129,7 +129,7 @@ var graph = {
 			},
         	tooltip: {
             	formatter: function() {
-                	return 'The value after your <b>'+ (this.x+1) +
+                	return 'The value after your <b>'+ (this.x) +
                     	'. Meal</b> was <b>'+ this.y +'</b>';
             	}
         	},
@@ -188,7 +188,7 @@ var graph = {
 			},
         	tooltip: {
             	formatter: function() {
-                	return 'The value after your <b>'+ (this.x+1) +
+                	return 'The value after your <b>'+ (this.x) +
                     	'. Meal</b> was <b>'+ this.y +'</b>';
             	}
         	},
