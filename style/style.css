@@ -25,6 +25,22 @@
 	margin: 10px;
 }
 
+#powered_by {
+	background-color: #fff;
+	text-align: center;
+	margin: 30px 25% 5px 25%;
+	padding: 5px;
+	-moz-border-radius: 				.6em /*{global-radii-blocks}*/;
+	-webkit-border-radius: 				.6em /*{global-radii-blocks}*/;
+	border-radius: 						.6em /*{global-radii-blocks}*/;
+}
+#powered_by p {
+	margin: 0;
+}
+#powered_by img {
+	height: 16px;
+}
+
 /*------------ #view_food ------------*/
 #food_list_head {
 	margin: 5px;

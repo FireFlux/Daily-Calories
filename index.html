@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="yes" name="apple-mobile-web-app-capable" />
 
+<link rel="apple-touch-icon" href="touch-icon.png" />
+
 <link href="style/jquery.mobile-1.1.0.min.css" rel="stylesheet" type="text/css">
 <link href="style/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="script/jquery-1.7.1.min.js"></script>
@@ -146,7 +148,9 @@
 			<input type="search" name="search_food" id="search_food" placeholder="Search food..." value="" />
             <a onclick="fatsecret.searchFood($('#search_food').val())" data-role="button">Search</a>
 			<ul data-role="listview" data-theme="c" id="search_result_list" class="result_list">
-            </ul>	
+            </ul>
+            
+            <div id="powered_by"><p>Powered by: <img src="images/fatsecret_logo.gif" /></p></div>	
 		</div><!-- /content -->
 
 		<div data-role="footer" data-id="global_footer" data-position="fixed">
