@@ -28,8 +28,8 @@
 #powered_by {
 	background-color: #fff;
 	text-align: center;
-	margin: 30px 25% 5px 25%;
-	padding: 5px;
+	margin: 30px 35% 5px 35%;
+	padding: 5px 2px 2px 2px;
 	-moz-border-radius: 				.6em /*{global-radii-blocks}*/;
 	-webkit-border-radius: 				.6em /*{global-radii-blocks}*/;
 	border-radius: 						.6em /*{global-radii-blocks}*/;
